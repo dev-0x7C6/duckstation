@@ -631,9 +631,9 @@ void GPU_HW_OpenGL::UpdateDisplay()
   if (g_settings.debugging.show_vram)
   {
     m_host_display->SetDisplayTexture(reinterpret_cast<void*>(static_cast<uintptr_t>(m_vram_texture.GetGLId())),
-                                      m_vram_texture.GetWidth(), static_cast<s32>(m_vram_texture.GetHeight()), 0,
-                                      m_vram_texture.GetHeight(), m_vram_texture.GetWidth(),
-                                      -static_cast<s32>(m_vram_texture.GetHeight()));
+                                      HostDisplayPixelFormat::RGBA8, m_vram_texture.GetWidth(),
+                                      static_cast<s32>(m_vram_texture.GetHeight()), 0, m_vram_texture.GetHeight(),
+                                      m_vram_texture.GetWidth(), -static_cast<s32>(m_vram_texture.GetHeight()));
     m_host_display->SetDisplayParameters(VRAM_WIDTH, VRAM_HEIGHT, 0, 0, VRAM_WIDTH, VRAM_HEIGHT,
                                          static_cast<float>(VRAM_WIDTH) / static_cast<float>(VRAM_HEIGHT));
   }
@@ -658,7 +658,8 @@ void GPU_HW_OpenGL::UpdateDisplay()
              (scaled_vram_offset_y + scaled_display_height) <= m_vram_texture.GetHeight())
     {
       m_host_display->SetDisplayTexture(reinterpret_cast<void*>(static_cast<uintptr_t>(m_vram_texture.GetGLId())),
-                                        m_vram_texture.GetWidth(), m_vram_texture.GetHeight(), scaled_vram_offset_x,
+                                        HostDisplayPixelFormat::RGBA8, m_vram_texture.GetWidth(),
+                                        m_vram_texture.GetHeight(), scaled_vram_offset_x,
                                         m_vram_texture.GetHeight() - scaled_vram_offset_y, scaled_display_width,
                                         -static_cast<s32>(scaled_display_height));
     }
@@ -688,8 +689,8 @@ void GPU_HW_OpenGL::UpdateDisplay()
       glDrawArrays(GL_TRIANGLES, 0, 3);
 
       m_host_display->SetDisplayTexture(reinterpret_cast<void*>(static_cast<uintptr_t>(m_display_texture.GetGLId())),
-                                        m_display_texture.GetWidth(), m_display_texture.GetHeight(), 0,
-                                        scaled_display_height, scaled_display_width,
+                                        HostDisplayPixelFormat::RGBA8, m_display_texture.GetWidth(),
+                                        m_display_texture.GetHeight(), 0, scaled_display_height, scaled_display_width,
                                         -static_cast<s32>(scaled_display_height));
 
       // restore state
