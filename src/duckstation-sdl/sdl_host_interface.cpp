@@ -907,6 +907,8 @@ void SDLHostInterface::DrawQuickSettingsMenu()
       }
     }
 
+    settings_changed |= ImGui::MenuItem("GPU on Thread", nullptr, &m_settings_copy.gpu_use_thread);
+
     ImGui::EndMenu();
   }
 
@@ -947,9 +949,8 @@ void SDLHostInterface::DrawQuickSettingsMenu()
                                         m_settings_copy.gpu_pgxp_enable);
     settings_changed |=
       ImGui::MenuItem("PGXP CPU Instructions", nullptr, &m_settings_copy.gpu_pgxp_cpu, m_settings_copy.gpu_pgxp_enable);
-    settings_changed |=
-      ImGui::MenuItem("PGXP Preserve Projection Precision", nullptr, &m_settings_copy.gpu_pgxp_preserve_proj_fp,
-                      m_settings_copy.gpu_pgxp_enable);
+    settings_changed |= ImGui::MenuItem("PGXP Preserve Projection Precision", nullptr,
+                                        &m_settings_copy.gpu_pgxp_preserve_proj_fp, m_settings_copy.gpu_pgxp_enable);
     ImGui::EndMenu();
   }
 
